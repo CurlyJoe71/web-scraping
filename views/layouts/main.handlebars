@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Web Scraping App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {{!-- <style>
+      body { background-color: #F2F6D0 }
+      #wrapper {
+        width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 5%;
+      }
+      #articles {
+        display: inline-block;
+        overflow: auto;
+        width: 60%;
+        height: 700px;
+      }
+      #notes {
+        float: right;
+        width: 30%;
+      }
+      textarea, input {
+        display: block;
+        width: 100%;
+        background-color: #FCF5C7;
+      }
+      input {
+        height: 36px;
+        font-size: 24px;
+      }
+      textarea {
+        height: 200px;
+        font-size: 18px;
+      }
+    </style> --}}
+  </head>
+  <body>
+    
+{{{ body }}}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+    $(document).ready(function(){
+
+    $('.collapsible').collapsible();
+        $('.modal').modal();
+
+        $("#add_comment").submit(function(e) {
+          e.preventDefault;
+          let id = $(this).data("id");
+          let url = "/articles/" + id;
+          let title = $("#note_title").val();
+          let body = $("#note_body").val();
+          console.log("this is the id: " + id);
+
+          let commentObject = {
+            title: title,
+            body: body
+          };
+
+          console.log(commentObject);
+
+          $.post(url, commentObject, function(data) {
+            location.reload();
+          });
+        });
+
+        $("#delete_comment").on("click", function() {
+          let id = $(this).data("id");
+          console.log(id);
+
+  $.ajax({
+    url: "/articles/" + id,
+    method: "PUT",
+    data: id
+  })
+  .then(function(data) {
+    location.reload();
+  })
+
+        });
+
+  });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Headlines</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/scrape">Scrape</a></li>
+        <li><a href="/articles">Home</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<div class="container">
+  <div class="row">
+      <h4>{{title}}</h4>
+  </div>
+
+<div class="col s12 center-align">
+        <img src="{{image}}">
+</div>
+
+<div class="row">
+  <ul class="collapsible">
+  {{#each note}}
+  <li>
+    <div class="collapsible-header">
+      {{this.title}}
+    </div>
+    <div class="collapsible-body">
+      <div class="row">
+        {{this.body}}
+      </div>
+    <button id="delete_comment" data-id="{{this.id}}" class="waves-effect waves-teal btn-flat">DELETE COMMENT</button>
+    </div>
+  </li>
+    {{/each}}
+  </ul>
+</div>
+        
+    <div class="row">
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            ADD COMMENT
+          </div>
+          <div class="collapsible-body">
+            <div class="row">
+
+              <form id="add_comment" data-id="{{id}}" class="col s12">
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input placeholder="Title" name="title" id="note_title" type="text" class="validate">
+                    <label for="note_title">Title for your comment.</label>
+                  </div>
+                </div>
+                 <div class="row">
+                  <div class="input-field col s6">
+                    <input placeholder="Comment" name="body" id="note_body" type="text" class="validate">
+                    <label for="note_body">Share your thoughts...</label>
+                  </div>
+                </div>
+                  <button type="submit" class="waves-effect waves-blue btn-flat">ADD COMMENT</button>
+              </form>
+            </div>
+          </div>
+        </li>
+
+
+      </ul>
+
+
+
+    </div>
+    </div>

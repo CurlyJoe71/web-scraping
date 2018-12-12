@@ -1,28 +1,47 @@
+<div class="navbar-fixed">
 <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Headlines</a>
+    <div class="nav-wrapper pink darken-3">
+      <a href="#" class="brand-logo">TowleRoad.com Headlines</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/articles">Home</a></li>
         <li><a href="/scrape">Scrape</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
       </ul>
     </div>
   </nav>
+
+</div>
+
+<div class="container">
+
+
+  <div class="col s12 center-align">
+        <img width="75%" src="https://www.vip-polymers.com/wp-content/uploads/2015/03/news.jpg">
+</div>
+
+{{!-- <div class="row ">
+<div class="col s12">
+  <img width="100%" class="responsive-img" src="https://www.vip-polymers.com/wp-content/uploads/2015/03/news.jpg">
+</div>
+</div> --}}
+</div>
 
 <div class="container">
 
   <ul class="collapsible">
 {{#each dbArticle}}
     <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{title}}</div>
+      <div class="collapsible-header"><i class="material-icons">import_contacts</i>{{title}}</div>
       <div class="collapsible-body left-align">
         <div class="row">
           <div class="col s3">
         <img src="{{image}}">
           </div>
         <span class="col s9 left-align">{{summary}}</span>
+        <div class="row">
         <a class="waves-effect waves-teal btn-flat" href="{{link}}">GO TO ARTICLE</a>
         <a class="waves-effect waves-teal btn-flat" href="/articles/{{id}}">GO TO COMMENTS</a>
+
+        </div>
         </div>
         </div>
     </li>

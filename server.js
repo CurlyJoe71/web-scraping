@@ -84,6 +84,19 @@ app.get("/articles", function (req, res) {
         });
 });
 
+app.get("/", function (req, res) {
+    db.Article.find({})
+        .then(function (dbArticle) {
+            let obj = {
+                dbArticle
+            }
+            res.render("home", obj);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
 app.get("/articles/:id", function (req, res) {
 
     let ObjectId = require("mongodb").ObjectId;

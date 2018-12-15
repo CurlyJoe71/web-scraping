@@ -1,28 +1,25 @@
-<div class="navbar-fixed">
+  <div class="navbar-fixed">
 <nav>
     <div class="nav-wrapper pink darken-3">
       <a href="#" class="brand-logo">TowleRoad.com Headlines</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
-        <li><a href="/articles">Saved Articles</a></li>
-        <li><button id="scrape" class="">Fresh Scrape!</button></li>
+        <li><button id="remove_all" class="">Remove All</button></li>
       </ul>
     </div>
   </nav>
-
 </div>
 
-<div class="container">
 
+<div class="container">
 
   <div class="col s12 center-align">
         <img width="50%" src="https://www.vip-polymers.com/wp-content/uploads/2015/03/news.jpg">
 </div>
-</div>
-
 
   <ul class="collapsible">
 {{#each dbArticle}}
+
     <li>
       <div class="collapsible-header"><i class="material-icons">import_contacts</i>{{title}}</div>
       <div class="collapsible-body left-align">
@@ -31,34 +28,23 @@
         <img src="{{image}}">
           </div>
         <span class="col s9 left-align">{{summary}}</span>
-        <div class="divider"></div>
-          <div class="section">        
-            <a id="save_article" class="waves-effect waves-teal btn-flat" href="/articles/save/{{id}}" >SAVE ARTICLE</a>
+        <div class="row">
+        <a class="waves-effect waves-teal btn-flat" href="{{link}}">GO TO ARTICLE</a>
+        <a class="waves-effect waves-teal btn-flat" href="/articles/{{id}}">GO TO COMMENTS</a>
+        <button id="remove_saved" class="waves-effect waves-teal btn-flat" data-id="{{id}}">REMOVE FROM SAVED</button>
+
         </div>
         </div>
         </div>
     </li>
-{{else}}
-<div class="container">
-  <div class="row">
-    <div class="row">
-      <h4>Looks we don't have any articles yet. Please make a fresh scrape.</h4>
-    </div>
+    {{else}}
+<div class="row">
+  <div class="row center-align">
+    <h6>You don't have saved any articles.</h6>
+    <h6>Go back to the home page and save some.</h6>
   </div>
-
+</div>
     {{/each}}
   </ul>
+
 </div>
-
-
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4>Article has been saved!</h4>
-    <p>You can go to the "Saved Article" page.</p>
-  </div>
-  <div class="modal-footer">
-    <a class="modal-close waves-effect waves-green btn-flat">Close</a>
-  </div>
-</div>
-
-

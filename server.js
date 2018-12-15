@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/headlines";
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://curlyjoe71:lawgonz7581@ds259085.mlab.com:59085/heroku_l8zk8vms";
 mongoose.connect(MONGODB_URI);
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -30,6 +30,8 @@ app.set("view engine", "handlebars");
 
 // A GET route for scraping the towleroad website
 app.get("/scrape", function (req, res) {
+
+    
 
     axios.get("http://www.towleroad.com/").then(function (response) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -56,32 +58,40 @@ app.get("/scrape", function (req, res) {
                 .children(".entry-content")
                 .children("a")
                 .children("img")
-                .attr("src")
+                .attr("src");
+            result.saved = false
 
-                db.Article.create(result)
-                    .then(function (dbArticle) {
-                        console.log(dbArticle);
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
+            db.Article.create(result)
+                .then(function (data) {
+                    console.log(data);
+                    res.json(data);
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         });
-
-        res.send("Scrape Complete");
     });
+
 });
 
 app.get("/articles", function (req, res) {
-    db.Article.find({})
+    db.Article.find({"saved": true})
         .then(function (dbArticle) {
             let obj = {
                 dbArticle
             }
-            res.render("home", obj);
+            res.render("articles", obj);
         })
         .catch(function (err) {
             res.json(err);
         });
+});
+
+app.post("/articles/removeall", (req, res) => {
+    db.Article.update({"saved": true}, {$set: {"saved": false}}, {multi:true})
+    .then((dbArticle) => {
+        res.json(dbArticle);
+    });
 });
 
 app.get("/", function (req, res) {
@@ -119,6 +129,40 @@ app.get("/articles/:id", function (req, res) {
         });
 });
 
+app.get("/articles/save/:id", function (req, res) {
+    let ObjectId = require("mongodb").ObjectId;
+    let id = req.params.id;
+    let o_id = new ObjectId(id);
+    console.log("this is the id");
+    console.log(id);
+
+    db.Article.updateOne({ "_id": o_id }, { "saved": true }, function (err, data) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.end;
+        }
+    });
+});
+
+app.post("/articles/remove/:id", function (req, res) {
+    let ObjectId = require("mongodb").ObjectId;
+    let id = req.params.id;
+    let o_id = new ObjectId(id);
+    console.log("this is the id");
+    console.log(id);
+
+    db.Article.updateOne({ "_id": o_id }, { "saved": false}, function(err, data) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.json(data);
+        };
+    });
+});
+
 // Route for saving/updating an Article's associated Note
 app.post("/articles/:id", function (req, res) {
     let ObjectId = require("mongodb").ObjectId;
@@ -130,7 +174,7 @@ app.post("/articles/:id", function (req, res) {
 
     db.Note.create(req.body)
         .then(function (dbNote) {
-            return db.Article.findOneAndUpdate({ "_id": o_id }, { $push: {note: dbNote._id }}, { new: true });
+            return db.Article.findOneAndUpdate({ "_id": o_id }, { $push: { note: dbNote._id } }, { new: true });
         })
         .then(function (dbArticle) {
             res.json(dbArticle);
@@ -140,7 +184,7 @@ app.post("/articles/:id", function (req, res) {
         });
 });
 
-app.put("/articles/:id", function(req, res) {
+app.put("/articles/:id", function (req, res) {
     let ObjectId = require("mongodb").ObjectId;
     let id = req.params.id;
     let o_id = new ObjectId(id);
@@ -148,13 +192,13 @@ app.put("/articles/:id", function(req, res) {
     console.log(id);
     console.log(req.body);
 
-    db.Note.deleteOne({"_id": o_id})
-    .then(function (dbArticle) {
-        res.json(dbArticle);
-    })
-    .catch(function(err) {
-        res.json(err);
-    });
+    db.Note.deleteOne({ "_id": o_id })
+        .then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
 });
 
 // Start the server

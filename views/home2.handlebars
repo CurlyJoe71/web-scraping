@@ -5,7 +5,8 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
         <li><a href="/articles">Saved Articles</a></li>
-        <li><button id="scrape" class="">Fresh Scrape!</button></li>
+        <li><a href="/scrape">Fresh Scrape</a></li>
+        <li><a href="/delete">Delete Articles</a></li>
       </ul>
     </div>
   </nav>
@@ -16,10 +17,17 @@
 
 
   <div class="col s12 center-align">
-        <img width="50%" src="https://www.vip-polymers.com/wp-content/uploads/2015/03/news.jpg">
-</div>
+        <img width="75%" src="https://www.vip-polymers.com/wp-content/uploads/2015/03/news.jpg">
 </div>
 
+{{!-- <div class="row ">
+<div class="col s12">
+  <img width="100%" class="responsive-img" src="https://www.vip-polymers.com/wp-content/uploads/2015/03/news.jpg">
+</div>
+</div> --}}
+</div>
+
+<div class="container">
 
   <ul class="collapsible">
 {{#each dbArticle}}
@@ -31,34 +39,16 @@
         <img src="{{image}}">
           </div>
         <span class="col s9 left-align">{{summary}}</span>
-        <div class="divider"></div>
-          <div class="section">        
-            <a id="save_article" class="waves-effect waves-teal btn-flat" href="/articles/save/{{id}}" >SAVE ARTICLE</a>
+        <div class="row">
+        <a class="waves-effect waves-teal btn-flat" href="/articles/save/{{id}}">SAVE ARTICLE</a>
+
         </div>
         </div>
         </div>
     </li>
-{{else}}
-<div class="container">
-  <div class="row">
-    <div class="row">
-      <h4>Looks we don't have any articles yet. Please make a fresh scrape.</h4>
-    </div>
-  </div>
-
     {{/each}}
   </ul>
-</div>
 
-
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4>Article has been saved!</h4>
-    <p>You can go to the "Saved Article" page.</p>
-  </div>
-  <div class="modal-footer">
-    <a class="modal-close waves-effect waves-green btn-flat">Close</a>
-  </div>
 </div>
 
 

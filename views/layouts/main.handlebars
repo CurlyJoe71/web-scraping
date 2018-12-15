@@ -88,6 +88,39 @@
 
         });
 
+        $("#scrape").on("click", function() {
+          $.ajax({
+            url: "/scrape",
+            method: "GET"
+          })
+          .then(() => {
+            location.reload();
+          });
+        });
+
+        $("#remove_saved").on("click", function(e) {
+          e.preventDefault;
+          let id = $(this).data("id");
+          $.ajax({
+            url: "/articles/remove/" + id,
+            method: "POST"
+          })
+          .then(() => {
+            location.reload();
+          });
+        });
+
+        $("#remove_all").on("click", function(e) {
+          e.preventDefault;
+          $.ajax({
+            url: "/articles/removeall",
+            method: "POST"
+          })
+          .then(() => {
+            location.reload();
+          });
+        });
+
   });
   </script>
   </body>

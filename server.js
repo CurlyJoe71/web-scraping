@@ -17,7 +17,7 @@ var app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 // Connect to the Mongo DB
 //process.env.MONGODB_URI ||

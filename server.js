@@ -20,7 +20,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-let MONGODB_URI = process.env.MONGODB_URI || "mongodb://curlyjoe71:lawgonz7581@ds259085.mlab.com:59085/heroku_l8zk8vms";
+//process.env.MONGODB_URI ||
+let MONGODB_URI =  "mongodb://curlyjoe71:lawgonz7581@ds259085.mlab.com:59085/heroku_l8zk8vms";
 mongoose.connect(MONGODB_URI);
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
